@@ -113,20 +113,52 @@ export default function InvestorOverview() {
   };
 
   return (
-    <section className="min-h-screen bg-transparent px-4 py-12">
+    <section className="min-h-screen bg-transparent px-4 py-48">
       <Toaster />
 
-      <div className="flex justify-center items-center gap-2 mb-6">
-        <Image src={flameLogo} alt="Lumen Dei Flame" width={40} height={40} className="mr-2" />
-        <h2 className="text-3xl font-bold text-white font-montserrat">Empower Your Wealth with Lumen Dei</h2>
-      </div>
+      <div className="flex flex-col items-center mb-8">
+  <Image src={flameLogo} alt="Lumen Dei Flame" width={50} height={50} className="mb-2" />
+  <h2 className="text-3xl font-bold text-white font-montserrat text-center">
+    Empower Your Wealth with Lumen Dei
+  </h2>
+</div>
+
 
       <div className="text-gray-300 text-sm mt-6 text-center">
-        To begin, connect your wallet and enter your email address. Then generate your referral link.
+        To begin, connect your wallet and enter your email address.
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4">
-        <ConnectButton />
+  <ConnectButton.Custom>
+    {({ account, chain, openConnectModal, mounted }) => {
+      return (
+        <div
+          aria-hidden={!mounted}
+          style={{ display: mounted ? "flex" : "none" }}
+          className="w-full flex flex-col space-y-1"
+        >
+          {!account || !chain ? (
+            <>
+              <span className="text-sm text-gray-400">Connect your DEX wallet here</span>
+              <button
+                onClick={openConnectModal}
+                type="button"
+                className="bg-lumen-cream/10 border border-white/20 py-2 px-4 rounded-md font-bold text-white w-full hover:bg-white/10 transition"
+              >
+                Connect Wallet
+              </button>
+            </>
+          ) : (
+            <div className="bg-lumen-cream/10 border border-white/20 rounded-md text-white px-4 py-2 font-bold text-center w-full">
+              <p className="text-sm leading-tight">{chain.name} —</p>
+              <p className="text-sm">{account.displayName}</p>
+            </div>
+          )}
+        </div>
+      );
+    }}
+  </ConnectButton.Custom>
+
         <input
           type="email"
           placeholder="Add Email Address (for updates & security)"
@@ -134,32 +166,35 @@ export default function InvestorOverview() {
           onChange={(e) => setEmail(e.target.value)}
         />
         <button onClick={handleGenerateReferral} className="bg-lumen-gold py-2 px-4 rounded-md font-bold">
-          <ClipboardIcon className="inline-block w-4 h-4 mr-1" /> Generate Referral
+          <ClipboardIcon className="inline-block w-4 h-4 mr-1" /> Referral Link
         </button>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 my-6">
-        <select
-          className="p-2 rounded-md text-black"
-          onChange={(e) => setPlatform(e.target.value)}
-        >
-          <option>Binance</option>
-          <option>ByBit</option>
-          <option>OKX</option>
-        </select>
+      <select
+  className="p-2 rounded-md text-black"
+  onChange={(e) => setPlatform(e.target.value)}
+>
+  <option value="" disabled selected>Choose Your CEX Wallet</option>
+  <option value="Binance">Binance</option>
+  <option value="ByBit">ByBit</option>
+  <option value="OKX">OKX</option>
+  <option value="KuCoin">KuCoin</option> {/* ✅ Newly added */}
+</select>
+
         <input
           type="text"
-          placeholder="CEX Wallet Address"
+          placeholder="Enter Your CEX Wallet Address"
           className="p-2 rounded-md text-black"
           onChange={(e) => setCexWallet(e.target.value)}
         />
         <button onClick={handleDeposit} className="bg-lumen-cream/10 border border-white/20 py-2 px-4 rounded-md font-bold text-white">
-          Register CEX Wallet
+          Start Investment
         </button>
       </div>
 
-      <div className="text-white text-center text-sm my-4">
-        💡 After registering, send your trading funds to your CEX account. We’ll track profits and show them here.
+      <div className="text-white text-center text-sm mt-20 mb-4">
+        💡 After registering, we will track profits and show them here.
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
