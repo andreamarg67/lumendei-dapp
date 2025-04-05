@@ -1,0 +1,33 @@
+{
+  "name": "lumen-dei-dapp-template",
+  "version": "1.0.0",
+  "description": "Lumen Dei DApp",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@ethersproject/providers": "^5.8.0",
+    "@heroicons/react": "^2.2.0",
+    "@rainbow-me/rainbowkit": "^2.2.4",
+    "@tanstack/react-query": "^5.0.0",
+    "chart.js": "^4.4.8",
+    "ethers": "^6.13.5",
+    "next": "^15.2.3",
+    "react": "^19.0.0",
+    "react-chartjs-2": "^5.3.0",
+    "react-dom": "^19.0.0",
+    "react-hot-toast": "^2.5.2",
+    "viem": "^2.23.14",
+    "wagmi": "^2.14.16"
+  },
+  "devDependencies": {
+    "@types/react": "19.0.12",
+    "autoprefixer": "^10.4.14",
+    "postcss": "^8.4.21",
+    "tailwindcss": "^3.2.7",
+    "typescript": "5.8.2"
+  }
+}
