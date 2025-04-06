@@ -37,11 +37,11 @@ export default function ConnectWalletButton() {
   };
 
   return (
-    <div className="flex flex-col space-y-2 w-full text-white">
+        <div className="flex gap-2 sm:flex-col w-full text-white">
+
       {!isConnected ? (
         <>
-          <label className="text-sm text-gray-400">Choose Your DEX Wallet</label>
-
+         
           <select
             className="p-2 rounded-md text-black"
             value={wallet}
