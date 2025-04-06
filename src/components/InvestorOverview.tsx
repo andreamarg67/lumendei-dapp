@@ -129,9 +129,19 @@ export default function InvestorOverview() {
 
 
    
-   <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4 w-full items-center">
+   <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 mt-4 w-full items-center">
+  {/* New How to Guides Button in Column 1 */}
+  <button
+    className="bg-lumen-cream/10 border border-white/20 py-2 px-4 rounded-md font-bold text-white w-full hover:bg-white/10 transition"
+    onClick={() => console.log("Show How To Guides")} // replace with modal or navigation
+  >
+    How to Guides
+  </button>
+
+  {/* Wallet selection + connect */}
   <ConnectWalletButton />
 
+  {/* Email input field */}
   <input
     type="email"
     placeholder="Add Email Address (for updates & security)"
@@ -139,6 +149,7 @@ export default function InvestorOverview() {
     onChange={(e) => setEmail(e.target.value)}
   />
 </div>
+
 
 
 
