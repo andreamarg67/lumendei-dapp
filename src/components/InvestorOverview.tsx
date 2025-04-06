@@ -119,7 +119,7 @@ export default function InvestorOverview() {
 
       <div className="flex flex-col items-center mb-8">
       <h2
-      className="text-3xl font-bold text-transparent bg-clip-text text-center font-montserrat"
+      className="text-5xl font-normal text-transparent bg-clip-text text-center font-montserrat"
       style={{
       backgroundImage: `linear-gradient(to right, #b0822e, #fee4a3, #925008, #efca81)`,
       }}
@@ -128,21 +128,27 @@ export default function InvestorOverview() {
    </div>
 
 
-      <div className="text-gray-300 text-sm mt-6 text-center">
-        To begin, connect your wallet and enter your email address.
-      </div>
+   <div className="text-gray-300 text-sm mt-6 text-center">
+  To begin, connect your wallet and enter your email address.
+</div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4">
-      <ConnectWalletButton />
+<div className="flex flex-col sm:flex-row justify-center items-start gap-4 mt-4">
 
-        <input
-          type="email"
-          placeholder="Add Email Address (for updates & security)"
-          className="p-2 rounded-md border text-center font-bold"
-          onChange={(e) => setEmail(e.target.value)}
-        />
-       
-      </div>
+  {/* DEX Wallet selection + Connect button stacked vertically */}
+  <div className="flex flex-col gap-2 w-full sm:w-1/3">
+    <ConnectWalletButton />
+  </div>
+
+  {/* Email input field */}
+  <input
+    type="email"
+    placeholder="Add Email Address (for updates & security)"
+    className="p-3 rounded-md border w-full sm:w-1/3 text-center font-bold"
+    onChange={(e) => setEmail(e.target.value)}
+  />
+
+</div>
+
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 my-6">
       <select
