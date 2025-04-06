@@ -6,7 +6,6 @@ import { BrowserProvider, Contract } from "ethers";
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { useAccount } from "wagmi";
-import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { toast, Toaster } from "react-hot-toast";
 import { ClipboardIcon } from "@heroicons/react/24/outline";
 import flameLogo from "../assets/lumen-flame.png";
