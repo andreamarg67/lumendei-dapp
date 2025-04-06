@@ -128,6 +128,7 @@ export default function InvestorOverview() {
    </div>
 
 
+<<<<<<< HEAD
    <div className="text-center text-white text-sm sm:text-base font-normal tracking-wide uppercase mb-4">
   To begin, connect your DEX wallet and enter your email address.
 </div>
@@ -138,6 +139,14 @@ export default function InvestorOverview() {
   <button
      className="bg-lumen-cream/10 border border-white/20 py-3 px-4 rounded-md font-bold text-white w-full text-center
              hover:bg-gradient-to-r hover:from-[#b0822e] hover:via-[#fee4a3] hover:to-[#925008] hover:text-black transition duration-300"
+=======
+   
+{/* Row 1: How to Guides, Wallet Select, Connect Button, Email */}
+<div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6 items-center w-full">
+  {/* Column 1: How to Guides */}
+  <button
+    className="bg-lumen-cream/10 border border-white/20 py-2 px-4 rounded-md font-bold text-white w-full hover:bg-white/10 transition"
+>>>>>>> 61552c8b37582eb76a0a920c4b1396b75d1cf425
     onClick={() => console.log("Show How To Guides")}
   >
     How to Guides
@@ -150,14 +159,19 @@ export default function InvestorOverview() {
   <input
     type="email"
     placeholder="Add Email Address (for updates & security)"
+<<<<<<< HEAD
     className="bg-lumen-cream/10 border border-white/20 py-3 px-4 rounded-md font-bold text-white w-full text-center
     placeholder-white hover:placeholder-black
     hover:bg-gradient-to-r hover:from-[#b0822e] hover:via-[#fee4a3] hover:to-[#925008]
     hover:text-black transition duration-300"
+=======
+    className="p-3 rounded-md border text-center font-bold w-full"
+>>>>>>> 61552c8b37582eb76a0a920c4b1396b75d1cf425
     onChange={(e) => setEmail(e.target.value)}
   />
 </div>
 
+<<<<<<< HEAD
 <div className="text-center text-white text-sm sm:text-base font-normal tracking-wide uppercase mt-8 my-4">
   Now connect your CEX wallet and start investing.
 </div>
@@ -168,6 +182,17 @@ export default function InvestorOverview() {
   <select
       className="bg-lumen-cream/10 border border-white/20 py-3 px-4 rounded-md font-bold text-white w-full text-center
              hover:bg-gradient-to-r hover:from-[#b0822e] hover:via-[#fee4a3] hover:to-[#925008] hover:text-black transition duration-300"
+=======
+
+{/* Row 2: Blank column, CEX Wallet, CEX Wallet Address, Start Investment */}
+<div className="grid grid-cols-1 sm:grid-cols-4 gap-4 mt-4 w-full items-center">
+  {/* Column 1: Empty to align with How to Guides */}
+  <div className="hidden sm:block" />
+
+  {/* Column 2: CEX Wallet selection */}
+  <select
+    className="p-2 rounded-md text-black w-full"
+>>>>>>> 61552c8b37582eb76a0a920c4b1396b75d1cf425
     onChange={(e) => setPlatform(e.target.value)}
   >
     <option value="" disabled selected>Choose Your CEX Wallet</option>
@@ -177,6 +202,7 @@ export default function InvestorOverview() {
     <option value="KuCoin">KuCoin</option>
   </select>
 
+<<<<<<< HEAD
   {/* Column 2: CEX Wallet Address */}
   <input
     type="text"
@@ -193,12 +219,27 @@ export default function InvestorOverview() {
     onClick={handleDeposit}
       className="bg-lumen-cream/10 border border-white/20 py-3 px-4 rounded-md font-bold text-white w-full text-center
              hover:bg-gradient-to-r hover:from-[#b0822e] hover:via-[#fee4a3] hover:to-[#925008] hover:text-black transition duration-300"
+=======
+  {/* Column 3: CEX Wallet Address */}
+  <input
+    type="text"
+    placeholder="Enter Your CEX Wallet Address"
+    className="p-2 rounded-md text-black w-full"
+    onChange={(e) => setCexWallet(e.target.value)}
+  />
+
+  {/* Column 4: Start Investment Button */}
+  <button
+    onClick={handleDeposit}
+    className="bg-lumen-cream/10 border border-white/20 py-2 px-4 rounded-md font-bold text-white w-full hover:bg-white/10 transition"
+>>>>>>> 61552c8b37582eb76a0a920c4b1396b75d1cf425
   >
     Start Investment
   </button>
 </div>
 
 
+<<<<<<< HEAD
 
       <div className="flex justify-center my-8">
       <Image src={flameLogo} alt="Lumen Dei Flame" width={60} height={60} />
@@ -213,10 +254,23 @@ export default function InvestorOverview() {
     }}
   >
     <ClipboardIcon className="inline-block w-4 h-4 mr-1" />
+=======
+      <div className="flex justify-center my-8">
+      <Image src={flameLogo} alt="Lumen Dei Flame" width={50} height={50} />
+      </div>
+
+      <div className="flex justify-center mt-4">
+  <button
+    onClick={handleGenerateReferral}
+    className="bg-lumen-gold px-10 py-4 rounded-md font-bold text-white text-lg shadow-md hover:shadow-lg transition"
+  >
+    <ClipboardIcon className="inline-block w-5 h-5 mr-2" />
+>>>>>>> 61552c8b37582eb76a0a920c4b1396b75d1cf425
     Referral Link
   </button>
 </div>
 
+<<<<<<< HEAD
 
 
 <p className="text-white text-center text-sm sm:text-base mt-6 mb-6 uppercase tracking-wide">
@@ -238,6 +292,23 @@ export default function InvestorOverview() {
         <div className="bg-lumen-cream/10 rounded-xl p-6 border border-lumen-gold/20">
         <p className="text-white font-bold text-sm sm:text-base mb-1">
             Referral Earnings</p>
+=======
+      <div className="text-white text-center text-sm mt-20 mb-4">
+        💡 After registering, we will track profits and show them here.
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+        <div className="bg-lumen-cream/10 rounded-xl p-6 border border-lumen-gold/20">
+          <p className="text-gray-300 text-sm">Total Invested</p>
+          <p className="text-2xl font-bold text-lumen-gold">${totalInvested}</p>
+        </div>
+        <div className="bg-lumen-cream/10 rounded-xl p-6 border border-lumen-gold/20">
+          <p className="text-gray-300 text-sm">Monthly Profit</p>
+          <p className="text-2xl font-bold text-lumen-bronze">+${monthlyProfit}</p>
+        </div>
+        <div className="bg-lumen-cream/10 rounded-xl p-6 border border-lumen-gold/20">
+          <p className="text-gray-300 text-sm">Referral Earnings</p>
+>>>>>>> 61552c8b37582eb76a0a920c4b1396b75d1cf425
           <p className="text-2xl font-bold text-lumen-gold">${referralEarnings}</p>
         </div>
       </div>

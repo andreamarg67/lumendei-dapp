@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 //connectWallet.ts
 
+=======
+>>>>>>> 61552c8b37582eb76a0a920c4b1396b75d1cf425
 import { BrowserProvider, Contract } from "ethers";
 import LumenDeiFundABI from "../constants/LumenDeiFundABI.json"; // ✅ Import ABI JSON if available
 

@@ -72,7 +72,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <footer className="bg-transparent text-center py-6 text-sm text-white opacity-80">
                 <div className="flex flex-col items-center space-y-2">
                   <Image src={logo} alt="Lumen Dei Logo" width={80} height={30} />
+<<<<<<< HEAD
                   <p>© 2025 lumen-dei.com — All rights reserved.</p>
+=======
+                  <p>© 2025 lumen-dei.ai — All rights reserved.</p>
+>>>>>>> 61552c8b37582eb76a0a920c4b1396b75d1cf425
                 </div>
               </footer>
             </div>
