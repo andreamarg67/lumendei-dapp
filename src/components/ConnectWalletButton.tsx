@@ -8,7 +8,6 @@ import { MetaMaskConnector } from '@wagmi/connectors/metaMask';
 import { WalletConnectConnector } from '@wagmi/connectors/walletConnect';
 import { CoinbaseWalletConnector } from '@wagmi/connectors/coinbaseWallet';
 
-
 export default function ConnectWalletButton() {
   const { address, isConnected } = useAccount();
   const { connect } = useConnect();
@@ -37,13 +36,11 @@ export default function ConnectWalletButton() {
   };
 
   return (
-        <div className="flex gap-2 sm:flex-col w-full text-white">
-
+    <div className="w-full text-white">
       {!isConnected ? (
-        <>
-         
+        <div className="flex flex-row gap-2 w-full">
           <select
-            className="p-2 rounded-md text-black"
+            className="p-2 rounded-md text-black w-1/2"
             value={wallet}
             onChange={(e) => setWallet(e.target.value)}
           >
@@ -54,11 +51,11 @@ export default function ConnectWalletButton() {
           </select>
           <button
             onClick={() => connect({ connector: getConnector() })}
-            className="bg-lumen-cream/10 border border-white/20 py-2 px-4 rounded-md font-bold text-white w-full hover:bg-white/10 transition"
+            className="bg-lumen-cream/10 border border-white/20 py-2 px-4 rounded-md font-bold text-white w-1/2 hover:bg-white/10 transition"
           >
-          Connect Your Wallet
+            Connect Your Wallet
           </button>
-        </>
+        </div>
       ) : (
         <div className="bg-lumen-cream/10 border border-white/20 rounded-md px-4 py-2 font-bold text-center w-full">
           <p className="text-sm leading-tight">Connected</p>
