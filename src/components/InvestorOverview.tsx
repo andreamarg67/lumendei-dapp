@@ -129,22 +129,17 @@ export default function InvestorOverview() {
 
 
    
-   <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mt-4">
-
-{/* Wallet selection + Connect button (now side by side inside the component) */}
-<div className="w-full sm:w-1/3">
+   <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4 w-full items-center">
   <ConnectWalletButton />
+
+  <input
+    type="email"
+    placeholder="Add Email Address (for updates & security)"
+    className="p-3 rounded-md border w-full text-center font-bold"
+    onChange={(e) => setEmail(e.target.value)}
+  />
 </div>
 
-{/* Email input field */}
-<input
-  type="email"
-  placeholder="Add Email Address (for updates & security)"
-  className="p-3 rounded-md border w-full sm:w-1/3 text-center font-bold"
-  onChange={(e) => setEmail(e.target.value)}
-/>
-
-</div>
 
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 my-6">

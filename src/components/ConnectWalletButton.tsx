@@ -44,7 +44,7 @@ export default function ConnectWalletButton() {
             value={wallet}
             onChange={(e) => setWallet(e.target.value)}
           >
-            <option value="" disabled selected>Choose Your DEX Wallet</option>
+            <option value="" disabled>Choose Your DEX Wallet</option>
             <option value="MetaMask">MetaMask</option>
             <option value="WalletConnect">WalletConnect</option>
             <option value="Coinbase">Coinbase</option>
@@ -70,4 +70,5 @@ export default function ConnectWalletButton() {
       )}
     </div>
   );
+  
 }
