@@ -130,7 +130,7 @@ export default function InvestorOverview() {
 
    
 {/* Row 1: How to Guides, Wallet Select, Connect Button, Email */}
-<div className="grid grid-cols-1 sm:grid-cols-4 gap-4 mt-4 w-full items-center">
+<div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6 items-center w-full">
   {/* Column 1: How to Guides */}
   <button
     className="bg-lumen-cream/10 border border-white/20 py-2 px-4 rounded-md font-bold text-white w-full hover:bg-white/10 transition"
@@ -139,17 +139,18 @@ export default function InvestorOverview() {
     How to Guides
   </button>
 
-  {/* Column 2 & 3: Wallet select + connect (rendered side-by-side from ConnectWalletButton) */}
+  {/* Column 2: Wallet selection + connect button */}
   <ConnectWalletButton />
 
-  {/* Column 4: Email Input */}
+  {/* Column 3: Email input */}
   <input
     type="email"
     placeholder="Add Email Address (for updates & security)"
-    className="p-3 rounded-md border w-full text-center font-bold"
+    className="p-3 rounded-md border text-center font-bold w-full"
     onChange={(e) => setEmail(e.target.value)}
   />
 </div>
+
 
 {/* Row 2: Blank column, CEX Wallet, CEX Wallet Address, Start Investment */}
 <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 mt-4 w-full items-center">
