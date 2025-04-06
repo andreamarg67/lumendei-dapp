@@ -129,19 +129,20 @@ export default function InvestorOverview() {
 
 
    
-   <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 mt-4 w-full items-center">
-  {/* New How to Guides Button in Column 1 */}
+{/* Row 1: How to Guides, Wallet Select, Connect Button, Email */}
+<div className="grid grid-cols-1 sm:grid-cols-4 gap-4 mt-4 w-full items-center">
+  {/* Column 1: How to Guides */}
   <button
     className="bg-lumen-cream/10 border border-white/20 py-2 px-4 rounded-md font-bold text-white w-full hover:bg-white/10 transition"
-    onClick={() => console.log("Show How To Guides")} // replace with modal or navigation
+    onClick={() => console.log("Show How To Guides")}
   >
     How to Guides
   </button>
 
-  {/* Wallet selection + connect */}
+  {/* Column 2 & 3: Wallet select + connect (rendered side-by-side from ConnectWalletButton) */}
   <ConnectWalletButton />
 
-  {/* Email input field */}
+  {/* Column 4: Email Input */}
   <input
     type="email"
     placeholder="Add Email Address (for updates & security)"
@@ -150,31 +151,40 @@ export default function InvestorOverview() {
   />
 </div>
 
+{/* Row 2: Blank column, CEX Wallet, CEX Wallet Address, Start Investment */}
+<div className="grid grid-cols-1 sm:grid-cols-4 gap-4 mt-4 w-full items-center">
+  {/* Column 1: Empty to align with How to Guides */}
+  <div className="hidden sm:block" />
 
+  {/* Column 2: CEX Wallet selection */}
+  <select
+    className="p-2 rounded-md text-black w-full"
+    onChange={(e) => setPlatform(e.target.value)}
+  >
+    <option value="" disabled selected>Choose Your CEX Wallet</option>
+    <option value="Binance">Binance</option>
+    <option value="ByBit">ByBit</option>
+    <option value="OKX">OKX</option>
+    <option value="KuCoin">KuCoin</option>
+  </select>
 
+  {/* Column 3: CEX Wallet Address */}
+  <input
+    type="text"
+    placeholder="Enter Your CEX Wallet Address"
+    className="p-2 rounded-md text-black w-full"
+    onChange={(e) => setCexWallet(e.target.value)}
+  />
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 my-6">
-      <select
-  className="p-2 rounded-md text-black"
-  onChange={(e) => setPlatform(e.target.value)}
->
-  <option value="" disabled selected>Choose Your CEX Wallet</option>
-  <option value="Binance">Binance</option>
-  <option value="ByBit">ByBit</option>
-  <option value="OKX">OKX</option>
-  <option value="KuCoin">KuCoin</option> {/* ✅ Newly added */}
-</select>
+  {/* Column 4: Start Investment Button */}
+  <button
+    onClick={handleDeposit}
+    className="bg-lumen-cream/10 border border-white/20 py-2 px-4 rounded-md font-bold text-white w-full hover:bg-white/10 transition"
+  >
+    Start Investment
+  </button>
+</div>
 
-        <input
-          type="text"
-          placeholder="Enter Your CEX Wallet Address"
-          className="p-2 rounded-md text-black"
-          onChange={(e) => setCexWallet(e.target.value)}
-        />
-        <button onClick={handleDeposit} className="bg-lumen-cream/10 border border-white/20 py-2 px-4 rounded-md font-bold text-white">
-          Start Investment
-        </button>
-      </div>
 
       <div className="flex justify-center my-8">
       <Image src={flameLogo} alt="Lumen Dei Flame" width={50} height={50} />
