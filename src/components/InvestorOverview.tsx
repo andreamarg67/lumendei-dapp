@@ -119,7 +119,7 @@ export default function InvestorOverview() {
 
       <div className="flex flex-col items-center mb-8">
   <Image src={flameLogo} alt="Lumen Dei Flame" width={50} height={50} className="mb-2" />
-  <h2 className="text-3xl font-bold text-white font-montserrat text-center">
+  <h2 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#b58e43] via-[#d4af37] to-[#fff4d6] font-montserrat text-center">
     Empower Your Wealth with Lumen Dei
   </h2>
 </div>
