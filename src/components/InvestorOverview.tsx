@@ -118,10 +118,14 @@ export default function InvestorOverview() {
       <Toaster />
 
       <div className="flex flex-col items-center mb-8">
-  <h2 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#d4af37] via-[#8c6931] to-[#d4af37] font-montserrat text-center">
-    Empower Your Wealth with Lumen Dei
-  </h2>
-</div>
+      <h2
+      className="text-3xl font-bold text-transparent bg-clip-text text-center font-montserrat"
+      style={{
+      backgroundImage: `linear-gradient(to right, #b0822e, #fee4a3, #925008, #efca81)`,
+      }}
+    >  Empower Your Wealth with Lumen Dei
+    </h2>
+   </div>
 
 
       <div className="text-gray-300 text-sm mt-6 text-center">
@@ -137,9 +141,7 @@ export default function InvestorOverview() {
           className="p-2 rounded-md border text-center font-bold"
           onChange={(e) => setEmail(e.target.value)}
         />
-        <button onClick={handleGenerateReferral} className="bg-lumen-gold py-2 px-4 rounded-md font-bold">
-          <ClipboardIcon className="inline-block w-4 h-4 mr-1" /> Referral Link
-        </button>
+       
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 my-6">
@@ -169,6 +171,15 @@ export default function InvestorOverview() {
       <Image src={flameLogo} alt="Lumen Dei Flame" width={50} height={50} />
       </div>
 
+      <div className="flex justify-center mt-4">
+  <button
+    onClick={handleGenerateReferral}
+    className="bg-lumen-gold px-10 py-4 rounded-md font-bold text-white text-lg shadow-md hover:shadow-lg transition"
+  >
+    <ClipboardIcon className="inline-block w-5 h-5 mr-2" />
+    Referral Link
+  </button>
+</div>
 
       <div className="text-white text-center text-sm mt-20 mb-4">
         💡 After registering, we will track profits and show them here.
