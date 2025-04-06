@@ -114,11 +114,10 @@ export default function InvestorOverview() {
   };
 
   return (
-    <section className="min-h-screen bg-transparent px-4 py-48">
+    <section className="min-h-screen bg-transparent px-4 py-36">
       <Toaster />
 
       <div className="flex flex-col items-center mb-8">
-  <Image src={flameLogo} alt="Lumen Dei Flame" width={50} height={50} className="mb-2" />
   <h2 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#d4af37] via-[#8c6931] to-[#d4af37] font-montserrat text-center">
     Empower Your Wealth with Lumen Dei
   </h2>
@@ -165,6 +164,11 @@ export default function InvestorOverview() {
           Start Investment
         </button>
       </div>
+
+      <div className="flex justify-center my-8">
+      <Image src={flameLogo} alt="Lumen Dei Flame" width={50} height={50} />
+      </div>
+
 
       <div className="text-white text-center text-sm mt-20 mb-4">
         💡 After registering, we will track profits and show them here.
