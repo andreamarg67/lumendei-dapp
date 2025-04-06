@@ -55,7 +55,7 @@ export default function ConnectWalletButton() {
             onClick={() => connect({ connector: getConnector() })}
             className="bg-lumen-cream/10 border border-white/20 py-2 px-4 rounded-md font-bold text-white w-full hover:bg-white/10 transition"
           >
-  
+          Connect Your Wallet
           </button>
         </>
       ) : (
