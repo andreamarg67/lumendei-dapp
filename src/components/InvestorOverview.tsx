@@ -15,7 +15,7 @@ import ConnectWalletButton from './ConnectWalletButton'; // adjust the path as n
 export default function InvestorOverview() {
   const { address, isConnected } = useAccount();
 
-  const [contract, setContract] = useState(null);
+  const [contract, setContract] = useState<Contract | null>(null);
   const [totalInvested, setTotalInvested] = useState("0");
   const [monthlyProfit, setMonthlyProfit] = useState("0");
   const [referralEarnings, setReferralEarnings] = useState("0");
@@ -46,6 +46,7 @@ export default function InvestorOverview() {
   }, [isConnected, contract]);
 
   const fetchDashboardData = async () => {
+    if (!contract) return;
     try {
       const [invested, profit, referrals, code] = await Promise.all([
         contract.totalInvested(address),

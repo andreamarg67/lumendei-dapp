@@ -1,3 +1,5 @@
+//connectwalletbutton.tsx
+// This component allows users to connect their wallets using MetaMask, WalletConnect, or Coinbase Wallet.
 'use client';
 
 import { useState } from 'react';
@@ -38,7 +40,8 @@ export default function ConnectWalletButton() {
     <div className="flex flex-col space-y-2 w-full text-white">
       {!isConnected ? (
         <>
-          <span className="text-sm text-gray-400">Connect your DEX wallet here</span>
+          <label className="text-sm text-gray-400">Choose Your DEX Wallet</label>
+
           <select
             className="p-2 rounded-md text-black"
             value={wallet}
@@ -52,16 +55,7 @@ export default function ConnectWalletButton() {
             onClick={() => connect({ connector: getConnector() })}
             className="bg-lumen-cream/10 border border-white/20 py-2 px-4 rounded-md font-bold text-white w-full hover:bg-white/10 transition"
           >
-            <select
-  value={wallet}
-  onChange={(e) => setWallet(e.target.value)}
-  className="mb-2 p-2 rounded-md bg-black text-white border border-white/20"
->
-  <option value="MetaMask">MetaMask</option>
-  <option value="WalletConnect">WalletConnect</option>
-  <option value="Coinbase">Coinbase Wallet</option>
-</select>
-            Connect Wallet
+  
           </button>
         </>
       ) : (
