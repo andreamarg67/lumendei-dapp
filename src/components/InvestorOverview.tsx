@@ -115,6 +115,7 @@ export default function InvestorOverview() {
   };
 
   return (
+    <> 
     <section className="min-h-screen bg-transparent px-4 py-36">
      <CountdownTimer /> {/* ⬅️ Add this here */}
       <Toaster />
@@ -268,5 +269,6 @@ export default function InvestorOverview() {
         </div>
       </div>
     </section>
+    </>
   );
 }
