@@ -11,6 +11,7 @@ import { ClipboardIcon } from "@heroicons/react/24/outline";
 import flameLogo from "../assets/lumen-flame.png";
 import { CONTRACT_ADDRESS, CONTRACT_ABI } from "../constants/connectWallet";
 import ConnectWalletButton from './ConnectWalletButton'; // adjust the path as needed
+import CountdownTimer from '@/components/countdowntimer';
 
 export default function InvestorOverview() {
   const { address, isConnected } = useAccount();
@@ -115,6 +116,7 @@ export default function InvestorOverview() {
 
   return (
     <section className="min-h-screen bg-transparent px-4 py-36">
+     <CountdownTimer /> {/* ⬅️ Add this here */}
       <Toaster />
 
       <div className="flex flex-col items-center mb-8">
