@@ -1,5 +1,3 @@
-// src/components/WagmiWrapper.tsx
-
 'use client';
 
 import React from 'react';
@@ -9,11 +7,8 @@ import { http } from 'viem';
 import { bsc } from 'wagmi/chains';
 import { metaMask, coinbaseWallet, walletConnect } from '@wagmi/connectors';
 
+// Setup wagmi config
 const wagmiConfig = createConfig({
-  chains: [bsc],
-  transports: {
-    [bsc.id]: http('https://data-seed-prebsc-1-s1.binance.org:8545/'),
-  },
   connectors: [
     metaMask(),
     walletConnect({
@@ -23,10 +18,15 @@ const wagmiConfig = createConfig({
       appName: 'Lumen Dei Investor Portal',
     }),
   ],
+  chains: [bsc],
+  transports: {
+    [bsc.id]: http('https://data-seed-prebsc-1-s1.binance.org:8545/'),
+  },
   ssr: true,
-  autoConnect: true,
+  // autoConnect: true, // ❌ Not supported here in your version
 });
 
+// Setup React Query client
 const queryClient = new QueryClient();
 
 export default function WagmiWrapper({ children }: { children: React.ReactNode }) {
