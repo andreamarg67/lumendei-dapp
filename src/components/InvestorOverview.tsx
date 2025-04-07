@@ -201,7 +201,6 @@ export default function InvestorOverview() {
 </div>
 
 
-
       <div className="flex justify-center my-8">
       <Image src={flameLogo} alt="Lumen Dei Flame" width={60} height={60} />
       </div>

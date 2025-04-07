@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "ES2020", // More modern target
+    "target": "ES2020",
     "lib": [
       "DOM",
       "DOM.Iterable",
@@ -8,11 +8,11 @@
     ],
     "allowJs": true,
     "skipLibCheck": true,
-    "strict": true, // Set to true for best dev experience (optional)
+    "strict": true,
     "noEmit": true,
     "incremental": true,
     "module": "ESNext",
-    "moduleResolution": "bundler", // <- key for modern packages like wagmi
+    "moduleResolution": "bundler",
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
@@ -20,9 +20,15 @@
     "forceConsistentCasingInFileNames": true,
     "types": [
       "node"
-    ], // <- ensure node types are loaded
-    "allowSyntheticDefaultImports": true // <- for compatibility with some ESM modules
-    ,
+    ],
+    "allowSyntheticDefaultImports": true,
+    // ✅ Path alias support for `@/`
+    "baseUrl": "src",
+    "paths": {
+      "@/*": [
+        "*"
+      ]
+    },
     "plugins": [
       {
         "name": "next"
@@ -30,12 +36,13 @@
     ]
   },
   "include": [
-    "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
+    "next-env.d.ts",
     ".next/types/**/*.ts"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    ".next"
   ]
 }
