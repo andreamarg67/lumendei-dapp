@@ -16,6 +16,9 @@ const cinzel = Cinzel({
 export const metadata: Metadata = {
   title: 'Lumen Dei | Investor Dashboard',
   description: 'Empower your wealth through the Lumen Dei Investor Portal.',
+  icons: {
+    icon: '/favicon.ico',
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

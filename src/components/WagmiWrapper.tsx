@@ -6,9 +6,9 @@ import { WagmiConfig, configureChains, createConfig } from 'wagmi';
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { supportedChain } from '@/utils/chains';
-import { MetaMaskConnector } from '@wagmi/connectors/metaMask';
-import { WalletConnectConnector } from '@wagmi/connectors/walletConnect';
-import { CoinbaseWalletConnector } from '@wagmi/connectors/coinbaseWallet';
+import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
+import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
+import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
 
 const { chains, publicClient } = configureChains(
   [supportedChain],
