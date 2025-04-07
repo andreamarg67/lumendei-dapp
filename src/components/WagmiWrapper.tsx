@@ -2,43 +2,29 @@
 
 'use client';
 
-import { WagmiConfig, configureChains, createConfig } from 'wagmi';
-import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
+import React from 'react';
+import { WagmiConfig, createConfig } from 'wagmi';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { supportedChain } from '@/utils/chains';
-import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
-import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
-import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
-
-const { chains, publicClient } = configureChains(
-  [supportedChain],
-  [
-    jsonRpcProvider({
-      rpc: () => ({
-        http: 'https://data-seed-prebsc-1-s1.binance.org:8545/',
-      }),
-    }),
-  ]
-);
+import { http } from 'viem';
+import { bsc } from 'wagmi/chains';
+import { metaMask, coinbaseWallet, walletConnect } from '@wagmi/connectors';
 
 const wagmiConfig = createConfig({
-  autoConnect: true,
-  publicClient,
+  chains: [bsc],
+  transports: {
+    [bsc.id]: http('https://data-seed-prebsc-1-s1.binance.org:8545/'),
+  },
   connectors: [
-    new MetaMaskConnector({ chains }),
-    new WalletConnectConnector({
-      chains,
-      options: {
-        projectId: '38780abf9d2e946f9a43c0d9ddc26a7a',
-      },
+    metaMask(),
+    walletConnect({
+      projectId: '38780abf9d2e946f9a43c0d9ddc26a7a',
     }),
-    new CoinbaseWalletConnector({
-      chains,
-      options: {
-        appName: 'Lumen Dei Investor Portal',
-      },
+    coinbaseWallet({
+      appName: 'Lumen Dei Investor Portal',
     }),
   ],
+  ssr: true,
+  autoConnect: true,
 });
 
 const queryClient = new QueryClient();

@@ -1,12 +1,13 @@
-// src/components/CountdownTimer.tsx
 'use client';
 
 import { useEffect, useState } from 'react';
 
 export default function CountdownTimer() {
   const launchDate = new Date('2025-04-14T09:00:00Z'); // GMT time
-  const [timeLeft, setTimeLeft] = useState(getTimeRemaining());
+
+  const [timeLeft, setTimeLeft] = useState<ReturnType<typeof getTimeRemaining> | null>(null);
   const [isVisible, setIsVisible] = useState(true);
+  const [hasMounted, setHasMounted] = useState(false);
 
   function getTimeRemaining() {
     const total = launchDate.getTime() - new Date().getTime();
@@ -18,6 +19,8 @@ export default function CountdownTimer() {
   }
 
   useEffect(() => {
+    setHasMounted(true); // avoid hydration mismatch
+
     const interval = setInterval(() => {
       const remaining = getTimeRemaining();
       setTimeLeft(remaining);
@@ -31,7 +34,7 @@ export default function CountdownTimer() {
     return () => clearInterval(interval);
   }, []);
 
-  if (!isVisible) return null;
+  if (!hasMounted || !isVisible || timeLeft === null) return null;
 
   return (
     <section className="text-center py-10 text-white">

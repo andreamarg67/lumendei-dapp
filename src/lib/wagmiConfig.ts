@@ -1,38 +1,31 @@
-// wagmiConfig.ts
-import { createConfig, configureChains } from 'wagmi';
-import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
-import { supportedChain } from '../utils/chains'; // ✅ NEW SAFE IMPORT
-import { MetaMaskConnector } from '@wagmi/connectors/metaMask';
-import { WalletConnectConnector } from '@wagmi/connectors/walletConnect';
-import { CoinbaseWalletConnector } from '@wagmi/connectors/coinbaseWallet';
-
-const { chains, publicClient } = configureChains(
-  [supportedChain],
-  [
-    jsonRpcProvider({
-      rpc: () => ({
-        http: 'https://data-seed-prebsc-1-s1.binance.org:8545',
-      }),
-    }),
-  ]
-);
+// src/lib/wagmiConfig.ts
+import { createConfig, http } from 'wagmi'
+import { mainnet } from 'wagmi/chains'
+// @ts-ignore
+import { MetaMaskConnector } from '@wagmi/connectors/dist/esm/metaMask'
+// @ts-ignore
+import { WalletConnectConnector } from '@wagmi/connectors/dist/esm/walletConnect'
+// @ts-ignore
+import { CoinbaseWalletConnector } from '@wagmi/connectors/dist.esm/coinbaseWallet'
 
 export const wagmiConfig = createConfig({
-  autoConnect: true,
+  chains: [mainnet],
+  transports: {
+    [mainnet.id]: http('https://rpc.ankr.com/eth'),
+  },
   connectors: [
-    new MetaMaskConnector({ chains }),
+    new MetaMaskConnector(),
     new WalletConnectConnector({
-      chains,
       options: {
-        projectId: 'YOUR_WALLETCONNECT_PROJECT_ID',
+        projectId: 'YOUR_WALLETCONNECT_PROJECT_ID', // You can get this from cloud.walletconnect.com
+        showQrModal: true,
       },
     }),
     new CoinbaseWalletConnector({
-      chains,
       options: {
         appName: 'Lumen Dei',
       },
     }),
   ],
-  publicClient,
-});
+  ssr: true,
+})

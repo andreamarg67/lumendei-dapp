@@ -1,12 +1,13 @@
-//connectwalletbutton.tsx
-// This component allows users to connect their wallets using MetaMask, WalletConnect, or Coinbase Wallet.
+// src/components/ConnectWalletButton.tsx
 'use client';
 
 import { useState } from 'react';
 import { useAccount, useConnect, useDisconnect } from 'wagmi';
-import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
-import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
-import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
+import {
+  metaMask,
+  walletConnect,
+  coinbaseWallet,
+} from '@wagmi/connectors';
 
 export default function ConnectWalletButton() {
   const { address, isConnected } = useAccount();
@@ -18,20 +19,16 @@ export default function ConnectWalletButton() {
   const getConnector = () => {
     switch (wallet) {
       case 'WalletConnect':
-        return new WalletConnectConnector({
-          options: {
-            projectId: '38780abf9d2e946f9a43c0d9ddc26a7a', // ✅ Your actual WalletConnect project ID
-          },
+        return walletConnect({
+          projectId: '38780abf9d2e946f9a43c0d9ddc26a7a', // ✅ Replace with your actual projectId
         });
       case 'Coinbase':
-        return new CoinbaseWalletConnector({
-          options: {
-            appName: 'Lumen Dei',
-          },
+        return coinbaseWallet({
+          appName: 'Lumen Dei',
         });
       case 'MetaMask':
       default:
-        return new MetaMaskConnector();
+        return metaMask();
     }
   };
 
@@ -39,7 +36,6 @@ export default function ConnectWalletButton() {
     <div className="w-full text-white">
       {!isConnected ? (
         <div className="flex flex-col sm:flex-row gap-2 w-full items-stretch">
-          {/* DEX Wallet Select */}
           <select
             className="bg-lumen-cream/10 border border-white/20 py-3 px-4 rounded-md font-bold text-white w-full text-center
             hover:bg-gradient-to-r hover:from-[#b0822e] hover:via-[#fee4a3] hover:to-[#925008] hover:text-black transition duration-300"
@@ -52,7 +48,6 @@ export default function ConnectWalletButton() {
             <option value="Coinbase">Coinbase</option>
           </select>
 
-          {/* Connect Button */}
           <button
             onClick={() => connect({ connector: getConnector() })}
             className="bg-lumen-cream/10 border border-white/20 py-3 px-4 rounded-md font-bold text-white w-full text-center
