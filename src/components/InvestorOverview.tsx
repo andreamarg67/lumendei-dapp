@@ -2,6 +2,13 @@
 
 "use client";
 
+// Extend the Window interface to include the ethereum property
+declare global {
+  interface Window {
+    ethereum?: any;
+  }
+}
+
 import { BrowserProvider, Contract } from "ethers";
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
@@ -12,6 +19,8 @@ import flameLogo from "../assets/lumen-flame.png";
 import { CONTRACT_ADDRESS, CONTRACT_ABI } from "../constants/connectWallet";
 import ConnectWalletButton from './ConnectWalletButton'; // adjust the path as needed
 import CountdownTimer from '@/components/countdowntimer';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 export default function InvestorOverview() {
   const { address, isConnected } = useAccount();
@@ -27,6 +36,7 @@ export default function InvestorOverview() {
   const [cexWallet, setCexWallet] = useState("");
   const [withdrawAmount, setWithdrawAmount] = useState("");
   const [payoutWallet, setPayoutWallet] = useState("");
+  const router = useRouter();
 
   useEffect(() => {
     const loadContract = async () => {
@@ -138,13 +148,15 @@ export default function InvestorOverview() {
 {/* Row 1: How to Guides, Wallet Select, Connect Button, Email */}
 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6 items-stretch w-full">
   {/* Column 1: How to Guides */}
-  <button
-     className="bg-lumen-cream/10 border border-white/20 py-3 px-4 rounded-md font-bold text-white w-full text-center
-             hover:bg-gradient-to-r hover:from-[#b0822e] hover:via-[#fee4a3] hover:to-[#925008] hover:text-black transition duration-300"
-    onClick={() => console.log("Show How To Guides")}
-  >
-    How to Guides
-  </button>
+  <a
+  href="/how-to"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="bg-lumen-cream/10 border border-white/20 py-3 px-4 rounded-md font-bold text-white w-full text-center
+    hover:bg-gradient-to-r hover:from-[#b0822e] hover:via-[#fee4a3] hover:to-[#925008] hover:text-black transition duration-300 block"
+>
+  How to Guides
+</a>
 
   {/* Column 2: Wallet selection + connect button */}
   <ConnectWalletButton />
