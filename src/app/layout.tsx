@@ -3,17 +3,9 @@
 import '../styles/globals.css';
 import Image from 'next/image';
 import logo from '../assets/lumen-dei-logo3.png';
-import { Cinzel } from 'next/font/google';
 import type { Metadata } from 'next';
 import WagmiWrapper from '@/components/WagmiWrapper';
 import AutoConnect from '@/components/AutoConnect';
-
-
-const cinzel = Cinzel({
-  subsets: ['latin'],
-  weight: ['400', '700'],
-  variable: '--font-cinzel',
-});
 
 export const metadata: Metadata = {
   title: 'Lumen Dei | Investor Dashboard',
@@ -26,11 +18,13 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body
-        className={`${cinzel.className} bg-[url('/backgrounds/lumen-bg.png')] bg-cover bg-center bg-no-repeat bg-fixed min-h-screen text-white`}
-      >
+      <head>
+        {/* ✅ Load Minion Pro from Adobe Fonts */}
+        <link rel="stylesheet" href="https://use.typekit.net/uzo2dra.css" />
+      </head>
+      <body className="font-minion bg-[url('/backgrounds/lumen-bg.png')] bg-cover bg-center bg-no-repeat bg-fixed min-h-screen text-white">
         <WagmiWrapper>
-        <AutoConnect /> 
+          <AutoConnect />
           <div className="relative">
             <div className="absolute top-4 left-4">
               <Image src={logo} alt="Lumen Dei Logo" width={360} height={120} />

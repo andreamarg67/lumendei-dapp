@@ -1,10 +1,12 @@
+/** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ["./src/**/*.{js,ts,jsx,tsx}"], // <== critical for class detection
   theme: {
     extend: {
       fontFamily: {
         sans: ['"Montserrat"', 'sans-serif'],
-        heading: ['"Montserrat"', 'sans-serif'], // optional custom name
+        heading: ['"Montserrat"', 'sans-serif'],
+        minion: ['"minion-pro"', 'serif'], // ✅ Adobe Fonts loaded in layout.tsx
       },
       colors: {
         lumen: {

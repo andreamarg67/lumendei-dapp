@@ -24,10 +24,15 @@ const guides = [
 
 export default function HowToGuidesPage() {
   return (
-    <div className="max-w-7xl mx-auto px-6 py-12">
-      <h1 className="text-4xl font-bold text-center text-yellow-400 mb-12">
-        How-To Guides
-      </h1>
+<div className="max-w-7xl mx-auto px-6 py-12">
+  <h1
+    className="text-3xl md:text-4xl font-bold text-center font-minion bg-clip-text text-transparent mt-4 mb-10"
+    style={{
+      backgroundImage: 'linear-gradient(to right, #b0822e, #fee4a3, #925008, #efca81)',
+    }}
+  >
+    How-To Guides
+  </h1>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         {guides.map((guide, index) => (
@@ -43,13 +48,13 @@ export default function HowToGuidesPage() {
             className="group block p-6 bg-gradient-to-br from-zinc-900 to-zinc-800 border border-zinc-700 rounded-2xl shadow-md hover:scale-[1.02] transition-transform"
           >
             <div className="flex items-center gap-4 mb-4">
-              <FileText className="text-yellow-400 w-6 h-6 flex-shrink-0" />
+              <FileText className="text-lumen softgold w-6 h-6 flex-shrink-0" />
               <h2 className="text-white font-semibold text-lg group-hover:text-yellow-300 transition-colors">
                 {guide.title}
               </h2>
             </div>
             <p className="text-sm text-zinc-400">{guide.description}</p>
-            <span className="block mt-4 text-right text-violet-400 font-bold text-sm">
+            <span className="block mt-4 text-right text-lumen-gold font-bold text-sm">
               View →
             </span>
           </motion.a>
