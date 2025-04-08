@@ -21,10 +21,13 @@ import ConnectWalletButton from './ConnectWalletButton'; // adjust the path as n
 import CountdownTimer from '@/components/countdowntimer';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import EmailModal from './EmailModal';
+import axios from "axios";
+
 
 export default function InvestorOverview() {
-  const { address, isConnected } = useAccount();
-
+  const { address: connectedWallet, isConnected } = useAccount();
+  const [isEmailModalOpen, setEmailModalOpen] = useState(false);
   const [contract, setContract] = useState<Contract | null>(null);
   const [totalInvested, setTotalInvested] = useState("0");
   const [monthlyProfit, setMonthlyProfit] = useState("0");
@@ -37,10 +40,11 @@ export default function InvestorOverview() {
   const [withdrawAmount, setWithdrawAmount] = useState("");
   const [payoutWallet, setPayoutWallet] = useState("");
   const router = useRouter();
+  
 
   useEffect(() => {
     const loadContract = async () => {
-      if (typeof window !== "undefined" && window.ethereum && address) {
+      if (typeof window !== "undefined" && window.ethereum && connectedWallet) {
         const provider = new BrowserProvider(window.ethereum);
         const signer = await provider.getSigner();
         const instance = new Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
@@ -48,7 +52,7 @@ export default function InvestorOverview() {
       }
     };
     loadContract();
-  }, [address]);
+  }, [connectedWallet]);
 
   useEffect(() => {
     if (isConnected && contract) {
@@ -60,16 +64,16 @@ export default function InvestorOverview() {
     if (!contract) return;
     try {
       const [invested, profit, referrals, code] = await Promise.all([
-        contract.totalInvested(address),
-        contract.monthlyProfit(address),
-        contract.referralEarnings(address),
-        contract.getReferralCode(address),
+        contract.totalInvested(connectedWallet),
+        contract.monthlyProfit(connectedWallet),
+        contract.referralEarnings(connectedWallet),
+        contract.getReferralCode(connectedWallet),
       ]);
       setTotalInvested(invested.toString());
       setMonthlyProfit(profit.toString());
       setReferralEarnings(referrals.toString());
       setReferralCode(code);
-      setReferralLink(`https://lumen-dei.ai?ref=${code}`);
+      setReferralLink(`https://lumen-dei.com?ref=${code}`);
     } catch (err) {
       console.error("Error fetching dashboard data:", err);
     }
@@ -124,6 +128,30 @@ export default function InvestorOverview() {
     }
   };
 
+  const handleSubmitEmail = async () => {
+    if (!email) {
+      alert("Please enter a valid email address.");
+      return;
+    }
+  
+    try {
+      const res = await axios.post("http://localhost:5000/register", {
+        wallet: connectedWallet,
+        email,
+        cexWalletAddress: cexWallet,
+        cexPlatform: platform,
+        refCode: referralCode,
+      });
+  
+      console.log("✅ Email submitted:", res.data);
+      alert("Your email was submitted successfully!");
+    } catch (err) {
+      console.error("❌ Failed to submit email:", err);
+      alert("There was a problem submitting your email.");
+    }
+  };
+ 
+
   return (
     <> 
     <section className="min-h-screen bg-transparent px-4 py-36">
@@ -136,7 +164,7 @@ export default function InvestorOverview() {
       style={{
       backgroundImage: `linear-gradient(to right, #b0822e, #fee4a3, #925008, #efca81)`,
       }}
-    >  Empower Your Wealth with Lumen Dei
+    >  Empower Your Wealth
     </h2>
    </div>
 
@@ -162,15 +190,17 @@ export default function InvestorOverview() {
   <ConnectWalletButton />
 
   {/* Column 3: Email input */}
-  <input
-    type="email"
-    placeholder="Add Email Address (for updates & security)"
-    className="bg-lumen-cream/10 border border-white/20 py-3 px-4 rounded-md font-bold text-white w-full text-center
-    placeholder-white hover:placeholder-black
+  {/* Button to open email modal */}
+<button
+  onClick={() => setEmailModalOpen(true)}
+  className="bg-lumen-cream/10 border border-white/20 py-3 px-4 rounded-md font-bold text-white w-full text-center
     hover:bg-gradient-to-r hover:from-[#b0822e] hover:via-[#fee4a3] hover:to-[#925008]
     hover:text-black transition duration-300"
-    onChange={(e) => setEmail(e.target.value)}
-  />
+>
+  Add Email Address (for updates & security)
+</button>
+
+
 </div>
 
 <div className="text-center text-white text-sm sm:text-base font-normal tracking-wide uppercase mt-8 my-4">
@@ -281,6 +311,12 @@ export default function InvestorOverview() {
         </div>
       </div>
     </section>
+    <EmailModal
+  isOpen={isEmailModalOpen}
+  onClose={() => setEmailModalOpen(false)}
+  wallet={connectedWallet || ""}
+
+/>
     </>
   );
 }
