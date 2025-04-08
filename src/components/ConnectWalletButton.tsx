@@ -14,7 +14,7 @@ export default function ConnectWalletButton() {
   const { connect } = useConnect();
   const { disconnect } = useDisconnect();
 
-  const [wallet, setWallet] = useState('MetaMask');
+  const [wallet, setWallet] = useState('');
 
   const getConnector = () => {
     switch (wallet) {

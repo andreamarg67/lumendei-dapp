@@ -7,7 +7,6 @@ import { http } from 'viem';
 import { bsc } from 'wagmi/chains';
 import { metaMask, coinbaseWallet, walletConnect } from '@wagmi/connectors';
 
-// Setup wagmi config
 const wagmiConfig = createConfig({
   connectors: [
     metaMask(),
@@ -23,10 +22,9 @@ const wagmiConfig = createConfig({
     [bsc.id]: http('https://data-seed-prebsc-1-s1.binance.org:8545/'),
   },
   ssr: true,
-  // autoConnect: true, // ❌ Not supported here in your version
+  // ❌ autoConnect: true → REMOVE THIS LINE
 });
 
-// Setup React Query client
 const queryClient = new QueryClient();
 
 export default function WagmiWrapper({ children }: { children: React.ReactNode }) {

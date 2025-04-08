@@ -6,6 +6,8 @@ import logo from '../assets/lumen-dei-logo3.png';
 import { Cinzel } from 'next/font/google';
 import type { Metadata } from 'next';
 import WagmiWrapper from '@/components/WagmiWrapper';
+import AutoConnect from '@/components/AutoConnect';
+
 
 const cinzel = Cinzel({
   subsets: ['latin'],
@@ -28,6 +30,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         className={`${cinzel.className} bg-[url('/backgrounds/lumen-bg.png')] bg-cover bg-center bg-no-repeat bg-fixed min-h-screen text-white`}
       >
         <WagmiWrapper>
+        <AutoConnect /> 
           <div className="relative">
             <div className="absolute top-4 left-4">
               <Image src={logo} alt="Lumen Dei Logo" width={360} height={120} />
