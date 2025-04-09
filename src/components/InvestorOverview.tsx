@@ -16,7 +16,7 @@ import { useAccount } from "wagmi";
 import { toast, Toaster } from "react-hot-toast";
 import { ClipboardIcon } from "@heroicons/react/24/outline";
 import flameLogo from "../assets/lumen-flame.png";
-import { CONTRACT_ADDRESS, CONTRACT_ABI } from "../constants/connectWallet";
+import { CONTRACT_ABI } from "../constants/connectWallet";
 import ConnectWalletButton from './ConnectWalletButton'; // adjust the path as needed
 import CountdownTimer from '@/components/countdowntimer';
 import { useRouter } from 'next/navigation';
@@ -47,7 +47,8 @@ export default function InvestorOverview() {
       if (typeof window !== "undefined" && window.ethereum && connectedWallet) {
         const provider = new BrowserProvider(window.ethereum);
         const signer = await provider.getSigner();
-        const instance = new Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
+        const proxyAddress = process.env.NEXT_PUBLIC_LUMENDEI_PROXY_ADDRESS!;
+        const instance = new Contract(proxyAddress, CONTRACT_ABI, signer);
         setContract(instance);
       }
     };
@@ -173,15 +174,15 @@ export default function InvestorOverview() {
 
 {/* Row 1: How to Guides, Wallet Select, Connect Button, Email */}
 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6 items-stretch w-full">
-  {/* Column 1: How to Guides */}
+  {/* Column 1: Tutorials */}
   <a
-  href="/how-to"
+  href="/tutorials"
   target="_blank"
   rel="noopener noreferrer"
   className="bg-lumen-cream/10 border border-white/20 py-3 px-4 rounded-md font-bold text-white w-full text-center
     hover:bg-gradient-to-r hover:from-[#b0822e] hover:via-[#fee4a3] hover:to-[#925008] hover:text-black transition duration-300 block"
 >
-  How to Guides
+  Tutorials
 </a>
 
   {/* Column 2: Wallet selection + connect button */}

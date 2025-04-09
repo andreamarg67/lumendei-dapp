@@ -27,7 +27,7 @@ export default function EmailModal({ isOpen, onClose, wallet }: { isOpen: boolea
   return (
     <Dialog open={isOpen} onClose={onClose} className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
       <Dialog.Panel className="bg-white rounded-xl p-6 shadow-lg max-w-sm w-full">
-        <Dialog.Title className="text-lg font-semibold mb-4">Add Email Address</Dialog.Title>
+        <Dialog.Title className="text-black font-semibold mb-4">Add Email Address</Dialog.Title>
         <form onSubmit={handleSubmit} className="flex flex-col gap-3">
           <input
             type="email"
@@ -35,7 +35,7 @@ export default function EmailModal({ isOpen, onClose, wallet }: { isOpen: boolea
             placeholder="Enter your email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="border px-3 py-2 rounded-md focus:outline-none"
+            className="border px-3 py-2 rounded-md focus:outline-none text-black"
           />
           <button
             type="submit"

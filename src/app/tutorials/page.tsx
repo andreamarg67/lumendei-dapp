@@ -7,28 +7,28 @@ const guides = [
   {
     title: 'FAQ',
     description: 'Lumen Dei Frequently Asked Questions',
-    link: '/how-to/FAQs.pdf',
+    link: '/tutorials/FAQs.pdf',
   },
 
   {
     title: 'How to Connect Your Wallet',
     description: 'Step-by-step PDF guide for DEX wallet setup',
-    link: '/how-to/How_to_Connect_Your_DEX_Wallet.pdf',
+    link: '/tutorials/How_to_Connect_Your_DEX_Wallet.pdf',
   },
   {
     title: 'How to Create a Binance API Key',
     description: 'Securely set up your Binance API access',
-    link: '/how-to/create-binance-api.pdf',
+    link: '/tutorials/create-binance-api.pdf',
   },
   {
     title: 'How to Find Your ByBit Wallet Address',
     description: 'Quick visual walkthrough to locate your address',
-    link: '/how-to/bybit-wallet-address.png',
+    link: '/tutorials/bybit-wallet-address.png',
   },
   // Add more guides here
 ];
 
-export default function HowToGuidesPage() {
+export default function TutorialsPage() {
   return (
 <div className="max-w-7xl mx-auto px-6 py-12">
   <h1
@@ -37,7 +37,7 @@ export default function HowToGuidesPage() {
       backgroundImage: 'linear-gradient(to right, #b0822e, #fee4a3, #925008, #efca81)',
     }}
   >
-    How-To Guides
+    Tutorials
   </h1>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
