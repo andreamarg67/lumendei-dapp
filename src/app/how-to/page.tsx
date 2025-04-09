@@ -5,6 +5,12 @@ import { motion } from 'framer-motion';
 
 const guides = [
   {
+    title: 'FAQ',
+    description: 'Lumen Dei Frequently Asked Questions',
+    link: '/how-to/FAQs.pdf',
+  },
+
+  {
     title: 'How to Connect Your Wallet',
     description: 'Step-by-step PDF guide for DEX wallet setup',
     link: '/how-to/How_to_Connect_Your_DEX_Wallet.pdf',

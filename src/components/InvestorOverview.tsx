@@ -131,18 +131,18 @@ export default function InvestorOverview() {
   const handleSubmitEmail = async () => {
     if (!email) {
       alert("Please enter a valid email address.");
-      return;
+          return;
     }
   
     try {
-      const res = await axios.post("http://localhost:5000/register", {
+      const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/register`, {
         wallet: connectedWallet,
         email,
         cexWalletAddress: cexWallet,
         cexPlatform: platform,
         refCode: referralCode,
       });
-  
+    
       console.log("✅ Email submitted:", res.data);
       alert("Your email was submitted successfully!");
     } catch (err) {
@@ -150,8 +150,6 @@ export default function InvestorOverview() {
       alert("There was a problem submitting your email.");
     }
   };
- 
-
   return (
     <> 
     <section className="min-h-screen bg-transparent px-4 py-36">
@@ -315,8 +313,7 @@ export default function InvestorOverview() {
   isOpen={isEmailModalOpen}
   onClose={() => setEmailModalOpen(false)}
   wallet={connectedWallet || ""}
-
-/>
-    </>
+  />
+</>
   );
 }
