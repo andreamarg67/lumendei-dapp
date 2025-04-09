@@ -1,69 +1,42 @@
 'use client';
-
+import { useEffect, useState } from 'react';
 import { FileText } from 'lucide-react';
-import { motion } from 'framer-motion';
 
-const guides = [
-  {
-    title: 'FAQ',
-    description: 'Lumen Dei Frequently Asked Questions',
-    link: '/tutorials/FAQs.pdf',
-  },
-
-  {
-    title: 'How to Connect Your Wallet',
-    description: 'Step-by-step PDF guide for DEX wallet setup',
-    link: '/tutorials/How_to_Connect_Your_DEX_Wallet.pdf',
-  },
-  {
-    title: 'How to Create a Binance API Key',
-    description: 'Securely set up your Binance API access',
-    link: '/tutorials/create-binance-api.pdf',
-  },
-  {
-    title: 'How to Find Your ByBit Wallet Address',
-    description: 'Quick visual walkthrough to locate your address',
-    link: '/tutorials/bybit-wallet-address.png',
-  },
-  // Add more guides here
-];
+type Tutorial = {
+  title: string;
+  description: string;
+  file: string;
+};
 
 export default function TutorialsPage() {
-  return (
-<div className="max-w-7xl mx-auto px-6 py-12">
-  <h1
-    className="text-3xl md:text-4xl font-bold text-center font-minion bg-clip-text text-transparent mt-4 mb-10"
-    style={{
-      backgroundImage: 'linear-gradient(to right, #b0822e, #fee4a3, #925008, #efca81)',
-    }}
-  >
-    Tutorials
-  </h1>
+  const [tutorials, setTutorials] = useState<Tutorial[]>([]);
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {guides.map((guide, index) => (
-          <motion.a
-            key={index}
-            href={guide.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
-            viewport={{ once: true }}
-            className="group block p-6 bg-gradient-to-br from-zinc-900 to-zinc-800 border border-zinc-700 rounded-2xl shadow-md hover:scale-[1.02] transition-transform"
-          >
-            <div className="flex items-center gap-4 mb-4">
-              <FileText className="text-lumen softgold w-6 h-6 flex-shrink-0" />
-              <h2 className="text-white font-semibold text-lg group-hover:text-yellow-300 transition-colors">
-                {guide.title}
-              </h2>
+  useEffect(() => {
+    fetch('/tutorials/tutorials.json')
+      .then((res) => res.json())
+      .then(setTutorials);
+  }, []);
+
+  return (
+    <div className="p-6 text-white">
+      <h1 className="text-3xl font-bold mb-8 text-center text-gold">Tutorials</h1>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {tutorials.map((tutorial, index) => (
+          <div key={index} className="bg-[#131b26] p-6 rounded-2xl shadow-md border border-gray-700">
+            <div className="flex items-center mb-4 text-lg font-semibold">
+              <FileText className="mr-2 text-white" />
+              {tutorial.title}
             </div>
-            <p className="text-sm text-zinc-400">{guide.description}</p>
-            <span className="block mt-4 text-right text-lumen-gold font-bold text-sm">
+            <p className="text-sm mb-4 text-gray-300">{tutorial.description}</p>
+            <a
+              href={`/tutorials/${tutorial.file}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gold hover:underline font-medium"
+            >
               View →
-            </span>
-          </motion.a>
+            </a>
+          </div>
         ))}
       </div>
     </div>
