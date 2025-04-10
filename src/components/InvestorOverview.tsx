@@ -64,17 +64,30 @@ export default function InvestorOverview() {
   const fetchDashboardData = async () => {
     if (!contract) return;
     try {
-      const [invested, profit, referrals, code] = await Promise.all([
-        contract.totalInvested(connectedWallet),
-        contract.monthlyProfit(connectedWallet),
-        contract.referralEarnings(connectedWallet),
-        contract.getReferralCode(connectedWallet),
-      ]);
-      setTotalInvested(invested.toString());
-      setMonthlyProfit(profit.toString());
-      setReferralEarnings(referrals.toString());
-      setReferralCode(code);
-      setReferralLink(`https://lumen-dei.com?ref=${code}`);
+      const investor = await contract.investors(connectedWallet);
+const [referrals] = await Promise.all([
+  contract.referralEarnings(connectedWallet),
+]);
+
+let code = await contract.getReferralLink(connectedWallet);
+
+// ✅ Auto-generate if code doesn't exist
+if (!code || code.trim() === "") {
+  try {
+    const tx = await contract.generateReferralCode();
+    await tx.wait();
+    code = await contract.getReferralLink(connectedWallet);
+  } catch (genErr) {
+    console.error("Could not generate referral code automatically:", genErr);
+  }
+}
+
+setTotalInvested(investor.depositAmount.toString());
+setMonthlyProfit(investor.profit.toString());
+setReferralEarnings(referrals.toString());
+setReferralCode(code);
+setReferralLink(`https://lumen-dei.com?ref=${code}`);
+
     } catch (err) {
       console.error("Error fetching dashboard data:", err);
     }
@@ -82,8 +95,17 @@ export default function InvestorOverview() {
 
   const handleGenerateReferral = async () => {
     if (!contract) return;
+  
     try {
-      const tx = await contract.register();
+      let code = await contract.getReferralLink(connectedWallet);
+      console.log("Referral Code:", code); // 👈 This will show your actual code
+
+      if (code && code.trim() !== "") {
+        toast.error("Referral code already exists.");
+        return;
+      }
+  
+      const tx = await contract.generateReferralCode();
       await tx.wait();
       toast.success("Referral link generated successfully!");
       fetchDashboardData();
@@ -92,6 +114,7 @@ export default function InvestorOverview() {
       toast.error("Failed to generate referral");
     }
   };
+  
 
   const handleDeposit = async () => {
     if (!contract) return;
@@ -250,18 +273,23 @@ export default function InvestorOverview() {
       </div>
 
       <div className="w-full sm:w-2/3 mx-auto mt-6">
-  <button
-    onClick={handleGenerateReferral}
-    className="w-full py-3 px-4 rounded-md font-bold text-center text-gray-800 border border-white/20"
-    style={{
-      backgroundImage: 'linear-gradient(to right, #b0822e, #fee4a3, #925008, #efca81)',
-    }}
-  >
-    <ClipboardIcon className="inline-block w-4 h-4 mr-1" />
-    Referral Link
-  </button>
+  {referralLink ? (
+    <div
+      className="w-full py-3 px-4 rounded-md font-bold text-center text-gray-800 border border-white/20 bg-yellow-300 cursor-pointer hover:opacity-90"
+      onClick={() => {
+        navigator.clipboard.writeText(referralLink);
+        toast.success("Referral link copied!");
+      }}
+    >
+      <ClipboardIcon className="inline-block w-4 h-4 mr-1" />
+      <span className="break-all">{referralLink}</span>
+    </div>
+  ) : (
+    <div className="w-full py-3 px-4 rounded-md font-bold text-center text-gray-400 border border-white/10 bg-black/20">
+      Generating referral link...
+    </div>
+  )}
 </div>
-
 
 
 <p className="text-white text-center text-sm sm:text-base mt-6 mb-6 uppercase tracking-wide">
