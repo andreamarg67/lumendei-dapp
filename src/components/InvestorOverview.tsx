@@ -61,40 +61,59 @@ export default function InvestorOverview() {
     }
   }, [isConnected, contract]);
 
-const fetchDashboardData = async () => {
+  const fetchDashboardData = async () => {
     if (!contract) return;
+  
     try {
       const investor = await contract.investors(connectedWallet);
-const [referrals] = await Promise.all([
-  contract.referralRewards(connectedWallet),
-]);
-let code = await contract.getReferralLink(connectedWallet);
-
-// ✅ Auto-generate if code doesn't exist
-if (!code || String(code).trim() === "") {
-  try {
-    const tx = await contract.generateReferralCode();
-    await tx.wait();
-    code = await contract.getReferralLink(connectedWallet);
-  } catch (genErr) {
-    console.error("Could not generate referral code automatically:", genErr);
-  }
-}
-setTotalInvested(investor.depositAmount.toString());
-setMonthlyProfit(investor.profit.toString());
-setReferralEarnings(referrals.toString());
-setReferralCode(code);
-setReferralLink(`https://lumen-dei.com?ref=${String(code)}`);
+      const [referrals] = await Promise.all([
+        contract.referralRewards(connectedWallet),
+      ]);
+  
+      let code: string = "";
+  
+      // Safely try to get existing referral code
+      try {
+        code = await contract.getReferralLink(connectedWallet);
+      } catch (err) {
+        console.warn("No referral code found yet. Will attempt to generate.");
+      }
+  
+      // Generate code if not found
+      if (!code || String(code).trim() === "") {
+        try {
+          const tx = await contract.generateReferralCode();
+          await tx.wait();
+          code = await contract.getReferralLink(connectedWallet); // fetch again after generation
+        } catch (genErr) {
+          console.error("Failed to generate referral code automatically:", genErr);
+        }
+      }
+  
+      setTotalInvested(investor.depositAmount.toString());
+      setMonthlyProfit(investor.profit.toString());
+      setReferralEarnings(referrals.toString());
+      setReferralCode(code);
+      setReferralLink(`https://lumen-dei.com?ref=${String(code).trim()}`);
+      
     } catch (err) {
       console.error("Error fetching dashboard data:", err);
     }
   };
+  
   const handleGenerateReferral = async (): Promise<void> => {
     if (!contract) return;
-    try {
-      let code = await contract.getReferralLink(connectedWallet);
   
-      // ✅ Safely convert to string before trimming
+    try {
+      let code: string = "";
+  
+      // Try getting the existing code
+      try {
+        code = await contract.getReferralLink(connectedWallet);
+      } catch (err) {
+        // No code exists – that's okay!
+      }
+  
       if (code && String(code).trim() !== "") {
         toast.error("Referral code already exists.");
         return;
@@ -104,13 +123,13 @@ setReferralLink(`https://lumen-dei.com?ref=${String(code)}`);
       await tx.wait();
       toast.success("Referral link generated successfully!");
       fetchDashboardData();
-  
+      
     } catch (err) {
       console.error("Error generating referral:", err);
       toast.error("Failed to generate referral");
     }
   };
- 
+  
     const handleDeposit = async () => {
     if (!contract) return;
     try {
