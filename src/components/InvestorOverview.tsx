@@ -66,7 +66,7 @@ export default function InvestorOverview() {
     try {
       const investor = await contract.investors(connectedWallet);
 const [referrals] = await Promise.all([
-  contract.referralEarnings(connectedWallet),
+  contract.referralRewards(connectedWallet),
 ]);
 
 let code = await contract.getReferralLink(connectedWallet);
@@ -98,8 +98,7 @@ setReferralLink(`https://lumen-dei.com?ref=${code}`);
   
     try {
       let code = await contract.getReferralLink(connectedWallet);
-      console.log("Referral Code:", code); // 👈 This will show your actual code
-
+      
       if (code && code.trim() !== "") {
         toast.error("Referral code already exists.");
         return;

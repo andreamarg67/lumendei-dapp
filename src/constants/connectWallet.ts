@@ -1,28 +1,28 @@
-import { BrowserProvider, Contract } from "ethers";
-import LumenDeiFundABI from "../constants/LumenDeiFundABI.json"; // ✅ Import ABI JSON if available
+import { BrowserProvider, Contract, JsonRpcSigner } from "ethers";
+import LumenDeiFundABI from "./LumenDeiFundABI.json"; // Make sure the ABI is directly JSON (not .abi nested)
 
-// ✅ Correctly export contract address and ABI
-export const CONTRACT_ADDRESS = '0x3584A30cE9043eABD8d676c74d1B8E9a0d1C4f0'; // Replace with actual address
+// ✅ Verified Proxy Contract Address on BSC Mainnet
+export const CONTRACT_ADDRESS = "0xA01c717EB14f786d6a92aF2511DAF93D39E7a342";
 
-// ✅ Export ABI from JSON or directly add it here
-export const CONTRACT_ABI = LumenDeiFundABI.abi || [
-  {
-    inputs: [],
-    stateMutability: "nonpayable",
-    type: "constructor",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "investor",
-        type: "address",
-      },
-    ],
-    name: "APIKeyRequested",
-    type: "event",
-  },
-  // ✅ Add more ABI elements here if necessary
-];
+// ✅ Reusable function to get contract instance
+export const getLumenDeiContract = (
+  providerOrSigner: BrowserProvider | JsonRpcSigner
+) => {
+  return new Contract(CONTRACT_ADDRESS, LumenDeiFundABI, providerOrSigner);
+};
+export const fetchReferralLink = async (
+  provider: BrowserProvider,
+  userAddress: string
+): Promise<string> => {
+  try {
+    const signer = await provider.getSigner();
+    const contract = getLumenDeiContract(signer);
+    const link = await contract.getReferralLink(userAddress);
+    return link;
+  } catch (error) {
+    console.error("Failed to fetch referral link:", error);
+    throw error;
+  }
+
+};
+export const CONTRACT_ABI = LumenDeiFundABI;
