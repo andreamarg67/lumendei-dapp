@@ -61,18 +61,17 @@ export default function InvestorOverview() {
     }
   }, [isConnected, contract]);
 
-  const fetchDashboardData = async () => {
+const fetchDashboardData = async () => {
     if (!contract) return;
     try {
       const investor = await contract.investors(connectedWallet);
 const [referrals] = await Promise.all([
   contract.referralRewards(connectedWallet),
 ]);
-
 let code = await contract.getReferralLink(connectedWallet);
 
 // ✅ Auto-generate if code doesn't exist
-if (!code || code.trim() === "") {
+if (!code || String(code).trim() === "") {
   try {
     const tx = await contract.generateReferralCode();
     await tx.wait();
@@ -81,25 +80,22 @@ if (!code || code.trim() === "") {
     console.error("Could not generate referral code automatically:", genErr);
   }
 }
-
 setTotalInvested(investor.depositAmount.toString());
 setMonthlyProfit(investor.profit.toString());
 setReferralEarnings(referrals.toString());
 setReferralCode(code);
 setReferralLink(`https://lumen-dei.com?ref=${code}`);
-
     } catch (err) {
       console.error("Error fetching dashboard data:", err);
     }
   };
-
-  const handleGenerateReferral = async () => {
+  const handleGenerateReferral = async (): Promise<void> => {
     if (!contract) return;
-  
     try {
       let code = await contract.getReferralLink(connectedWallet);
-      
-      if (code && code.trim() !== "") {
+  
+      // ✅ Safely convert to string before trimming
+      if (code && String(code).trim() !== "") {
         toast.error("Referral code already exists.");
         return;
       }
@@ -108,14 +104,14 @@ setReferralLink(`https://lumen-dei.com?ref=${code}`);
       await tx.wait();
       toast.success("Referral link generated successfully!");
       fetchDashboardData();
+  
     } catch (err) {
       console.error("Error generating referral:", err);
       toast.error("Failed to generate referral");
     }
   };
-  
-
-  const handleDeposit = async () => {
+ 
+    const handleDeposit = async () => {
     if (!contract) return;
     try {
       const tx = await contract.deposit(referralCode, email, cexWallet, platform);
