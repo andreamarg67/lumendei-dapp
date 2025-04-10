@@ -84,7 +84,7 @@ setTotalInvested(investor.depositAmount.toString());
 setMonthlyProfit(investor.profit.toString());
 setReferralEarnings(referrals.toString());
 setReferralCode(code);
-setReferralLink(`https://lumen-dei.com?ref=${code.toString()}`);
+setReferralLink(`https://lumen-dei.com?ref=${String(code)}`);
     } catch (err) {
       console.error("Error fetching dashboard data:", err);
     }
